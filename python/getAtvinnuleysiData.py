@@ -58,10 +58,11 @@ results = data['data']
 csv_file = "atvinnuleysi_data.csv"
 with open(csv_file, mode='w', newline='') as file:
     writer = csv.writer(file)
-    writer.writerow(["Month", "Gender/Age", "Unit", "Value"])  # Write the header
-    for result in results:
-        key = result['key']
-        value = result['values'][0]
-        writer.writerow([key[0], key[1], key[2], value])
+    writer.writerow(["Year-Month", "Atvinnulausir", "Starfandi"])  # Write the header
+    for i in range(0, len(results), 2):
+        year_month = results[i]['key'][0]
+        atvinnulausir = results[i]['values'][0]
+        starfandi = results[i + 1]['values'][0]
+        writer.writerow([year_month, atvinnulausir, starfandi])
 
 print(f"Data has been written to {csv_file}")
