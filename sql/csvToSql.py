@@ -18,10 +18,6 @@ db_port = os.getenv('DB_PORT')
 atvinnuleysi_data = pd.read_csv('csv files/atvinnuleysiData.csv')
 sedlabanki_data = pd.read_csv('csv files/sedlabankiData.csv')
 
-# Debug: Print columns to check if 'Year-Month' column exists
-print("Atvinnuleysi Data Columns:", atvinnuleysi_data.columns)
-print("Sedlabanki Data Columns:", sedlabanki_data.columns)
-
 # Step 2: Format the dates to a consistent format
 if 'Year-Month' in atvinnuleysi_data.columns:
     atvinnuleysi_data['Year-Month'] = pd.to_datetime(atvinnuleysi_data['Year-Month'], format='%YM%m').dt.strftime('%Y-%m-%d')
