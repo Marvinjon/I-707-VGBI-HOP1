@@ -51,7 +51,7 @@ atvinnuleysi_data.to_sql(
     index=False
 )
 
-# Write monthly_avg_sedlabanki to a SEPARATE SQL table
+# Write monthly_avg_sedlabanki to SQL table
 monthly_avg_sedlabanki.to_sql(
     'sedlabanki', 
     engine, 
@@ -59,4 +59,4 @@ monthly_avg_sedlabanki.to_sql(
     index=False
 )
 
-print("Data written to SQL: Two tables created (atvinnuleysi and sedlabanki)")
+print("Data written to SQL")
