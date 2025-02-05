@@ -28,15 +28,7 @@ if 'Year-Month' in atvinnuleysi_data.columns:
     atvinnuleysi_data['Atvinnulausir_Percentage'] = (
         atvinnuleysi_data['Atvinnulausir'] / 
         (atvinnuleysi_data['Atvinnulausir'] + atvinnuleysi_data['Starfandi'])
-<<<<<<< HEAD
-<<<<<<< HEAD
-    ) * 1000
-=======
     )
->>>>>>> 03eb5e88c79dd7d1cb3860d7a02a12ca8519e8d3
-=======
-    )
->>>>>>> 03eb5e88c79dd7d1cb3860d7a02a12ca8519e8d3
 else:
     raise KeyError("'Year-Month' column not found in atvinnuleysiData.csv")
 
@@ -65,15 +57,7 @@ atvinnuleysi_data.to_sql(
     index=False
 )
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-# Write sedlabanki table (format: "YYYY-MM" as string)
-=======
 # Write monthly_avg_sedlabanki to SQL table
->>>>>>> 03eb5e88c79dd7d1cb3860d7a02a12ca8519e8d3
-=======
-# Write monthly_avg_sedlabanki to SQL table
->>>>>>> 03eb5e88c79dd7d1cb3860d7a02a12ca8519e8d3
 monthly_avg_sedlabanki.to_sql(
     'sedlabanki', 
     engine, 
