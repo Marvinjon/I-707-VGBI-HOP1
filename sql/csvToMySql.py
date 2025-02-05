@@ -17,25 +17,39 @@ db_port = os.getenv('DB_PORT')
 atvinnuleysi_data = pd.read_csv('csv files/atvinnuleysiData.csv')
 sedlabanki_data = pd.read_csv('csv files/sedlabankiData.csv')
 
-# Process atvinnuleysi_data: Format dates and calculate percentage
+# Process atvinnuleysi_data
 if 'Year-Month' in atvinnuleysi_data.columns:
+    # Convert to datetime, then format as "YYYY-MM" string
     atvinnuleysi_data['Year-Month'] = pd.to_datetime(
         atvinnuleysi_data['Year-Month'], format='%YM%m'
-    )
+    ).dt.strftime('%Y-%m')  # Format as string without day
+    
+    # Calculate percentage
     atvinnuleysi_data['Atvinnulausir_Percentage'] = (
         atvinnuleysi_data['Atvinnulausir'] / 
         (atvinnuleysi_data['Atvinnulausir'] + atvinnuleysi_data['Starfandi'])
-    ) * 100
+<<<<<<< HEAD
+<<<<<<< HEAD
+    ) * 1000
+=======
+    )
+>>>>>>> 03eb5e88c79dd7d1cb3860d7a02a12ca8519e8d3
+=======
+    )
+>>>>>>> 03eb5e88c79dd7d1cb3860d7a02a12ca8519e8d3
 else:
     raise KeyError("'Year-Month' column not found in atvinnuleysiData.csv")
 
-# Process sedlabanki_data: Format dates and calculate monthly averages
+# Process sedlabanki_data
 if 'Date' in sedlabanki_data.columns:
+    # Parse dates and extract "YYYY-MM" as strings
     sedlabanki_data['Date'] = pd.to_datetime(
         sedlabanki_data['Date'], format='%m/%d/%Y %I:%M:%S %p'
     )
-    # Create 'Year-Month' column (first day of each month)
-    sedlabanki_data['Year-Month'] = sedlabanki_data['Date'].dt.to_period('M').dt.to_timestamp()
+    # Create 'Year-Month' as strings (e.g., "2014-12")
+    sedlabanki_data['Year-Month'] = sedlabanki_data['Date'].dt.strftime('%Y-%m')
+    
+    # Calculate monthly average
     monthly_avg_sedlabanki = sedlabanki_data.groupby('Year-Month', as_index=False)['Value'].mean()
 else:
     raise KeyError("'Date' column not found in sedlabankiData.csv")
@@ -43,7 +57,7 @@ else:
 # Create SQL engine
 engine = create_engine(f'mysql+pymysql://{db_username}:{db_password}@{db_host}:{db_port}/{db_name}')
 
-# Write atvinnuleysi_data to SQL table (monthly data with percentage)
+# Write atvinnuleysi table (format: "YYYY-MM" as string)
 atvinnuleysi_data.to_sql(
     'atvinnuleysi', 
     engine, 
@@ -51,7 +65,15 @@ atvinnuleysi_data.to_sql(
     index=False
 )
 
-# Write monthly_avg_sedlabanki to a SEPARATE SQL table
+<<<<<<< HEAD
+<<<<<<< HEAD
+# Write sedlabanki table (format: "YYYY-MM" as string)
+=======
+# Write monthly_avg_sedlabanki to SQL table
+>>>>>>> 03eb5e88c79dd7d1cb3860d7a02a12ca8519e8d3
+=======
+# Write monthly_avg_sedlabanki to SQL table
+>>>>>>> 03eb5e88c79dd7d1cb3860d7a02a12ca8519e8d3
 monthly_avg_sedlabanki.to_sql(
     'sedlabanki', 
     engine, 
@@ -59,4 +81,4 @@ monthly_avg_sedlabanki.to_sql(
     index=False
 )
 
-print("Data written to SQL: Two tables created (atvinnuleysi and sedlabanki)")
+print("Data written to SQL")
