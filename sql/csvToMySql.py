@@ -25,7 +25,7 @@ if 'Year-Month' in atvinnuleysi_data.columns:
     atvinnuleysi_data['Atvinnulausir_Percentage'] = (
         atvinnuleysi_data['Atvinnulausir'] / 
         (atvinnuleysi_data['Atvinnulausir'] + atvinnuleysi_data['Starfandi'])
-    ) * 100
+    )
 else:
     raise KeyError("'Year-Month' column not found in atvinnuleysiData.csv")
 
